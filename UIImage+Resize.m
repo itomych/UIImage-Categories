@@ -9,6 +9,24 @@
 
 @implementation UIImage (Resize)
 
+- (UIImage *)squaredImage {
+    CGImageRef imageRef = [self CGImage];
+    
+    CGFloat width = CGImageGetWidth(imageRef);
+    CGFloat height = CGImageGetHeight(imageRef);
+    
+    CGFloat edge = MIN(width, height);
+    CGFloat x = (width - edge) / 2.0;
+    CGFloat y = (height - edge) / 2.0;
+    CGRect rect = CGRectMake(x, y, edge, edge);
+    
+    CGImageRef squaredImageRef = CGImageCreateWithImageInRect(imageRef, rect);
+    UIImage *squaredImage = [UIImage imageWithCGImage:squaredImageRef scale:self.scale orientation:self.imageOrientation];
+    CGImageRelease(squaredImageRef);
+    
+    return squaredImage;
+}
+
 // Returns a copy of this image that is cropped to the given bounds.
 // The bounds will be adjusted using CGRectIntegral.
 // This method ignores the image's imageOrientation setting.

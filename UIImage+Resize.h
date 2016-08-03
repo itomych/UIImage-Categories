@@ -5,6 +5,7 @@
 
 // Extends the UIImage class to support resizing/cropping
 @interface UIImage (Resize)
+- (UIImage *)squaredImage;
 - (UIImage *)croppedImage:(CGRect)bounds;
 - (UIImage *)circlularCroppedImageWithDiameter:(NSInteger)diameter
                                 atTopLeftPoint:(CGPoint)cropPoint
