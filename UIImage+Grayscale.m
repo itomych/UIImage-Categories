@@ -23,13 +23,20 @@
                                                  0,
                                                  colorSpace,
                                                  (CGBitmapInfo)kCGImageAlphaNone);
+    CGColorSpaceRelease(colorSpace);
     CGContextSaveGState(context);
     
     CGContextDrawImage(context, imageRect, [self CGImage]);
     CGImageRef imageRef = CGBitmapContextCreateImage(context);
     
     CGContextRestoreGState(context);
+    
+    UIImage *returnImage = [UIImage imageWithCGImage:imageRef scale:scaleFactor orientation:0];
+    
+    CGImageRelease(imageRef);
+    
+    CGContextRelease(context);
 
-    return [UIImage imageWithCGImage:imageRef scale:scaleFactor orientation:0];
+    return returnImage;
 }
 @end
